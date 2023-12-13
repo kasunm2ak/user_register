@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VAS & OSS</title>
+
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+</head>
+<body>
+
+<div class="container-fluid" ,color="blue">
+<h1 class="text-center alert alert-danger">NODE ACCESS FROM</h1>
+        <div class="row">
+            <div class="col-sm-2"></div>
+
+            <!-- content goes here -->
+            <div class="col-sm-8">
+<h2 >USER LIST <button class="btn btn-primary float-right" data-toggle="modal" data-target="#myModal">Create New Request</button></h2>
+
+{%with messages = get_flashed_messages()%}
+{%if messages%}
+{% for message in messages %}
+<div class="alert alert-success alert-dismissable" role="alert">
+    <button type="button" class="close" data-dismiss="alert" aria-label="close">
+        <span aria-hidden="true">&times</span>
+    </button>
+    {{message}}
+</div>
+{%endfor%}
+{%endif%}
+{%endwith%}
+
+
+
+    <!-- Enter New Reserve Modal -->
+    <div id="myModal" class="modal fade" role="dialog">
+        <div class="modal-dialog">
+            <div class="modal-content">
+
+                <div class="modal-header">
+                    <h5 class="modal-title text-primary" style="align-content: center;">Access Form</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                      <span aria-hidden="true">&times</span>
+                    </button>
+                  </div>
+
+
+                <div class="modal-body">
+
+                    <form action="{{ url_for('insert')}}" method="POST">
+                        <div class="form-group">
+                          <label>Name of the user with Initial</label>
+                          <input type="text" name="NameWinitial" class="form-control" id="exampleFormControlInput1" placeholder="Enter Name With Initials">
+                        </div>
+
+                        <div class="form-group">
+                            <label>Suggested User Name</label>
+                            <input type="text" name="UserName" class="form-control" id="exampleFormControlInput1" placeholder="Enter User Name">
+                        </div>
+
+                        <div class="form-group">
+                            <label>Designation</label>
+                            <input name="Designation" type="text" class="form-control" id="exampleFormControlInput1" placeholder="Enter Designation">
+                        </div>
+
+                        <div class="form-group">
+                            <label>Service Num</label>
+                           <input name="ServiceNum" type="text" class="form-control" id="exampleFormControlInput1" placeholder="Enter Employee service Number">
+                        </div>
+                        <div class="form-group">
+                            <label>Requester Mobile</label>
+                            <input name="RequesterMob" type="text" class="form-control" id="exampleFormControlInput1" placeholder="Enter Request Mobile">
+                        </div>
+                        <div class="form-group">
+                            <label>Email</label>
+                            <input name="email" type="text" class="form-control" id="exampleFormControlInput1" placeholder="Enter email">
+                        </div>
+                        <div class="form-group">
+                            <label>ID NUM</label>
+                            <input name="idnum" type="text" class="form-control" id="exampleFormControlInput1" placeholder="Enter ID Num">
+                        </div>
+                        <div class="form-group">
+                            <label>USER IP</label>
+                            <input name="userip" type="text" class="form-control" id="exampleFormControlInput1" placeholder="Enter IP">
+                        </div>
+                        <div class="form-group">
+                            <label>USER DIVISION</label>
+                            <input name="division" type="text" class="form-control" id="exampleFormControlInput1" placeholder="Enter devision">
+                        </div>
+
+                        <div class="form-group">
+                            <label>SELECT THE NODES</label><br>
+                            <input type="checkbox"  name="option" value="ZTE RAN EMS"> ZTE RAN EMS <br>
+                            <input type="checkbox"  name="option" value="ZTE ICM"> ZTE ICM <br>
+                            <input type="checkbox"  name="option" value="ZTE UME"> ZTE UME <br>
+                            <input type="checkbox"  name="option" value="ZTE NGI"> ZTE NGI <br>
+                            <input type="checkbox"  name="option" value="ZTE I-ENERGY"> ZTE I-ENERGY <br>
+                            <input type="checkbox"  name="option" value="NOKIA NETACT"> NOKIA NETACT <br>
+                            <input type="checkbox"  name="option" value="ZTE UME ELASTIC NET"> ZTE UME ELASTIC NET <br>
+                            <input type="checkbox"  name="option" value="ZTE NETNUMEN CORE"> ZTE NETNUMEN CORE <br>
+                        </div>
+                        <div class="form-group">
+                            <label>SELECT ROLES</label><br>
+                            <input type="checkbox"  name="option_role" value="maintaince"> Maintaince <br>
+                            <input type="checkbox"  name="option_role" value="viewonly"> view Only <br>
+                            <input type="checkbox"  name="option_role" value="operator"> Operator <br>
+                            <input type="checkbox"  name="option_role" value="superadmin"> Super Admin <br>
+                            <input type="checkbox"  name="option_role" value="admin"> Admin <br>
+                        </div>
+                          <button type="submit" class="btn btn-primary mb-2">Save</button>
+                      </form>
+
+                   <!-- <form action="{{ url_for('generate_pdf')}}" method="POST">
+                        <button type="submit" class="btn btn-primary mb-2">Generate PDF</button>
+                    </form> --->
+
+
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+
+    <!-- End of Enter New Reserve Modal -->
+
+
+
+
+<table class="table table-hover">
+    <thead>
+        <tr>
+            <th scope="col">Name With initial</th>
+            <th scope="col">User Name</th>
+            <th scope="col">Designation</th>
+            <th scope="col">Service Number</th>
+            <th scope="col">Requester Mobile</th>
+            <th scope="col">Email</th>
+            <th scope="col">ID Num</th>
+            <th scope="col">USER IP</th>
+            <th scope="col">USER DIVISION</th>
+            <th scope="col">Node</th>
+            <th scope="col">Role</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for row in dataArray %}
+        <tr>
+        <td>{{row.0}}</td>
+        <td>{{row.1}}</td>
+        <td>{{row.2}}</td>
+        <td>{{row.3}}</td>
+        <td>{{row.4}}</td>
+        <td>{{row.5}}</td>
+        <td>{{row.6}}</td>
+        <td>{{row.7}}</td>
+        <td>{{row.8}}</td>
+        <td>{{row.9}}</td>
+        <td>{{row.10}}</td>
+        <td>
+            <a href="/update/{{row.0}}" class="btn btn-warning btn-sm" data-toggle="modal" data-target="#modaledit{{row.0}}">Edit</a>
+        </td>
+        <td>
+            <a href="/delete/{{row.0}}" onclick="return confirm('Are Sure Want To Deleted ?')" class="btn btn-danger btn-sm">Delete</a>
+        </td>
+        <td>
+            <a href="{{ url_for('generate_pdf', servicenum=row.3) }}" onclick="return confirm('Are Sure Want To Generate PDF ?')" class="btn btn-danger btn-sm">Generate PDF</a>
+        </td>
+
+    </tr>
+
+
+        <!-- Enter New Reserve Modal -->
+        <div id="modaledit{{row.0}}" class="modal fade" role="dialog">
+            <div class="modal-dialog">
+                <div class="modal-content">
+
+                    <div class="modal-header">
+                        <h5 class="modal-title text-primary" style="align-content: center;">Update Details</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                          <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+
+
+                    <div class="modal-body">
+
+                        <form action="{{ url_for('update') }}" method="POST">
+                            <!--<input type="hidden" name="NameWinitial" value="{{row.0}}">-->
+                            <div class="form-group">
+                              <label>Name With Initial</label>
+                              <input value="{{row.0}}" type="text" name="NameWinitial" class="form-control" id="exampleFormControlInput1" placeholder="Enter Short Code">
+                            </div>
+
+                            <div class="form-group">
+                                <label>User Name</label>
+                                <input value="{{row.1}}" type="text" name="UserName" class="form-control" id="exampleFormControlInput1" placeholder="Enter ReserveBY">
+                            </div>
+
+                            <div class="form-group">
+                                <label>Designation</label>
+                                <input value="{{row.2}}" type="text"  name="Designation" class="form-control" id="exampleFormControlInput1" placeholder="Enter Use Purpose">
+                            <!--<input name="Designation" type="text" class="form-control" id="exampleFormControlInput1" placeholder="Enter Designation">-->
+                            </div>
+                            <div class="form-group">
+                                <label>Service Num</label>
+                                <input value="{{row.3}}" name="ServiceNum" type="text" class="form-control" id="exampleFormControlInput1" placeholder="Enter Request Name">
+                            </div>
+                            <div class="form-group">
+                                <label>Requester Mobile</label>
+                                <input value="{{row.4}}" name="RequesterMob" type="text" class="form-control" id="exampleFormControlInput1" placeholder="Enter Request Mobile">
+                            </div>
+                            <div class="form-group">
+                                <label>Email</label>
+                                <input value="{{row.5}}" name="email" type="text" class="form-control" id="exampleFormControlInput1" placeholder="Enter Email">
+                            </div>
+                            <div class="form-group">
+                                <label>ID Num</label>
+                                <input value="{{row.6}}" name="idnum" type="text" class="form-control" id="exampleFormControlInput1" placeholder="Enter ID">
+                            </div>
+                            <div class="form-group">
+                                <label>USER IP</label>
+                                <input value="{{row.7}}" name="userip" type="text" class="form-control" id="exampleFormControlInput1" placeholder="Enter IP">
+                            </div>
+                            <div class="form-group">
+                                <label>USER DIVISION</label>
+                                <input value="{{row.8}}" name="division" type="text" class="form-control" id="exampleFormControlInput1" placeholder="Enter DIVISION">
+                            </div>
+                            <div class="form-group">
+                                <label>Node</label>
+                                <input value="{{row.9}}" name="option" type="text" class="form-control" id="exampleFormControlInput1" placeholder="Enter Node">
+                            </div>
+                            <input type="checkbox" name="option" value="ZTE RAN EMS"> ZTE RAN EMS <br>
+                            <input type="checkbox" name="option" value="ZTE ICM"> ZTE ICM <br>
+                            <input type="checkbox" name="option" value="ZTE UME"> ZTE UME <br>
+                            <input type="checkbox" name="option" value="ZTE NGI"> ZTE NGI <br>
+                            <input type="checkbox" name="option" value="ZTE I-ENERGY"> ZTE I-ENERGY <br>
+                            <input type="checkbox" name="option" value="NOKIA NETACT"> NOKIA NETACT <br>
+                            <input type="checkbox" name="option" value="ZTE UME ELASTIC NET"> ZTE UME ELASTIC NET <br>
+                            <input type="checkbox" name="option" value="ZTE NETNUMEN CORE"> ZTE NETNUMEN CORE <br>
+                            <div class="form-group">
+                                <label>Role</label>
+                                <input value="{{row.10}}" name="option_role" type="text" class="form-control" id="exampleFormControlInput1" placeholder="Enter role">
+                            </div>
+                            <input type="checkbox"  name="option_role" value="maintaince"> Maintaince <br>
+                            <input type="checkbox"  name="option_role" value="viewonly"> view Only <br>
+                            <input type="checkbox"  name="option_role" value="operator"> Operator <br>
+                            <input type="checkbox"  name="option_role" value="superadmin"> Super Admin <br>
+                            <input type="checkbox"  name="option_role" value="admin"> Admin <br>
+
+                            <button type="submit" class="btn btn-success mb-2">Update</button>
+
+                         </form>
+
+
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+
+        <!-- End of Edit Reserve Modal -->
+
+
+
+
+        {% endfor %}
+    </tbody>
+
+</table>
+      </div>
+            <!-- Content ends here-->
+
+
+           <!-- <div class="col-sm-2"></div> -->
+        </div>
+    </div>
+
+ <script type="text/javascript" src="{{ url_for('static', filename='js/jquery-3.2.1.min.js') }}"></script>
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+</body>
+</html>
